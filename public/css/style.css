@@ -1,0 +1,13 @@
+/*
+ * dawnzcode.com — Stylesheet
+ * Damian Green · Dawnz Apps & Services
+ *
+ * Styles are currently embedded in index.html.
+ * As the site grows, extract component styles here.
+ *
+ * Suggested structure:
+ *   base.css       — reset, variables, typography
+ *   layout.css     — nav, sections, grid, footer
+ *   components.css — cards, buttons, badges, chips
+ *   animations.css — keyframes, transitions, reveals
+ */

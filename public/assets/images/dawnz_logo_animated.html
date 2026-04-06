@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dawnz Apps &amp; Services</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: #03080F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+  }
+  .logo-wrap {
+    position: relative;
+    width: 680px;
+    height: 480px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(201,162,39,0.38);
+  }
+  #matrix {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 1;
+  }
+  svg {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+  /* Pulse animation on icon glow */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.04; }
+    50%       { opacity: 0.10; }
+  }
+  @keyframes traceDash {
+    to { stroke-dashoffset: -24; }
+  }
+  @keyframes nodeBlink {
+    0%, 100% { opacity: 0.9; }
+    50%       { opacity: 0.4; }
+  }
+  .icon-halo   { animation: pulse 3s ease-in-out infinite; }
+  .trace-dash  { animation: traceDash 1.8s linear infinite; }
+  .node-blink  { animation: nodeBlink 2.2s ease-in-out infinite; }
+  .node-blink2 { animation: nodeBlink 2.8s ease-in-out infinite 0.6s; }
+  .node-blink3 { animation: nodeBlink 2s ease-in-out infinite 1.1s; }
+</style>
+</head>
+<body>
+<div class="logo-wrap">
+  <canvas id="matrix"></canvas>
+
+  <svg width="680" height="480" viewBox="0 0 680 480" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="goldText" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#F5D67A"/>
+        <stop offset="45%"  stop-color="#C9A227"/>
+        <stop offset="100%" stop-color="#7A5C00"/>
+      </linearGradient>
+      <linearGradient id="brushGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#F5D67A"/>
+        <stop offset="40%"  stop-color="#C9A227"/>
+        <stop offset="100%" stop-color="#7A5C00"/>
+      </linearGradient>
+      <linearGradient id="sgcSub" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#4EB3E8"/>
+        <stop offset="18%"  stop-color="#7DCFFF"/>
+        <stop offset="50%"  stop-color="#FFFFFF"/>
+        <stop offset="82%"  stop-color="#FF6666"/>
+        <stop offset="100%" stop-color="#EE3333"/>
+      </linearGradient>
+      <linearGradient id="sgcLine" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#4EB3E8" stop-opacity="0"/>
+        <stop offset="20%"  stop-color="#4EB3E8"/>
+        <stop offset="50%"  stop-color="#FFFFFF"/>
+        <stop offset="80%"  stop-color="#EE3333"/>
+        <stop offset="100%" stop-color="#EE3333" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="circuitGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#4EB3E8"/>
+        <stop offset="50%"  stop-color="#C9A227"/>
+        <stop offset="100%" stop-color="#EE3333"/>
+      </linearGradient>
+      <filter id="goldGlowF">
+        <feGaussianBlur stdDeviation="3.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="iconGlow">
+        <feGaussianBlur stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="softGlow">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- Outer borders -->
+    <rect x="20" y="12" width="640" height="456" rx="16" fill="none" stroke="#C9A227" stroke-width="1.2" opacity="0.6"/>
+    <rect x="28" y="20" width="624" height="440" rx="12" fill="none" stroke="#C9A227" stroke-width="0.4" opacity="0.2"/>
+
+    <!-- Corner brackets -->
+    <path d="M28 20 L60 20 L60 25 L33 25 L33 52 L28 52 Z" fill="#C9A227" opacity="0.65"/>
+    <path d="M652 20 L620 20 L620 25 L647 25 L647 52 L652 52 Z" fill="#C9A227" opacity="0.65"/>
+    <path d="M28 460 L60 460 L60 455 L33 455 L33 428 L28 428 Z" fill="#C9A227" opacity="0.65"/>
+    <path d="M652 460 L620 460 L620 455 L647 455 L647 428 L652 428 Z" fill="#C9A227" opacity="0.65"/>
+
+    <!-- Coding symbols at corners -->
+    <text x="38" y="47" font-family="'Courier New',monospace" font-size="11" fill="#C9A227" opacity="0.55">{</text>
+    <text x="626" y="47" font-family="'Courier New',monospace" font-size="11" fill="#C9A227" opacity="0.55">}</text>
+    <text x="38" y="452" font-family="'Courier New',monospace" font-size="11" fill="#C9A227" opacity="0.55">};</text>
+    <text x="622" y="452" font-family="'Courier New',monospace" font-size="11" fill="#C9A227" opacity="0.55">{</text>
+
+    <!-- HUD ticks -->
+    <g stroke="#C9A227" stroke-width="0.7" opacity="0.4">
+      <line x1="100" y1="12" x2="100" y2="20"/><line x1="180" y1="12" x2="180" y2="18"/>
+      <line x1="260" y1="12" x2="260" y2="20"/><line x1="340" y1="12" x2="340" y2="22"/>
+      <line x1="420" y1="12" x2="420" y2="20"/><line x1="500" y1="12" x2="500" y2="18"/>
+      <line x1="580" y1="12" x2="580" y2="20"/>
+      <line x1="100" y1="468" x2="100" y2="460"/><line x1="180" y1="468" x2="180" y2="462"/>
+      <line x1="260" y1="468" x2="260" y2="460"/><line x1="340" y1="468" x2="340" y2="458"/>
+      <line x1="420" y1="468" x2="420" y2="460"/><line x1="500" y1="468" x2="500" y2="462"/>
+      <line x1="580" y1="468" x2="580" y2="460"/>
+    </g>
+
+    <!-- Hex grid -->
+    <g stroke="#1A3A6B" stroke-width="0.6" opacity="0.35" fill="none">
+      <polygon points="340,34 362,46 362,70 340,82 318,70 318,46"/>
+      <polygon points="384,34 406,46 406,70 384,82 362,70 362,46"/>
+      <polygon points="296,34 318,46 318,70 296,82 274,70 274,46"/>
+      <polygon points="428,34 450,46 450,70 428,82 406,70 406,46"/>
+      <polygon points="252,34 274,46 274,70 252,82 230,70 230,46"/>
+      <polygon points="472,34 494,46 494,70 472,82 450,70 450,46"/>
+      <polygon points="340,82 362,94 362,118 340,130 318,118 318,94"/>
+      <polygon points="384,82 406,94 406,118 384,130 362,118 362,94"/>
+      <polygon points="296,82 318,94 318,118 296,130 274,118 274,94"/>
+      <polygon points="428,82 450,94 450,118 428,130 406,118 406,94"/>
+      <polygon points="362,130 384,142 384,166 362,178 340,166 340,142"/>
+      <polygon points="318,130 340,142 340,166 318,178 296,166 296,142"/>
+      <polygon points="406,130 428,142 428,166 406,178 384,166 384,142"/>
+    </g>
+
+    <!-- Floating code left -->
+    <text x="46" y="110" font-family="'Courier New',monospace" font-size="8.5" fill="#4EB3E8" opacity="0.38">function()</text>
+    <text x="46" y="124" font-family="'Courier New',monospace" font-size="8.5" fill="#C9A227" opacity="0.32">  return x;</text>
+    <text x="46" y="138" font-family="'Courier New',monospace" font-size="8.5" fill="#FFFFFF" opacity="0.2">// init</text>
+    <text x="46" y="160" font-family="'Courier New',monospace" font-size="8.5" fill="#EE3333" opacity="0.3">if (x &gt; 0) {</text>
+    <text x="46" y="174" font-family="'Courier New',monospace" font-size="8.5" fill="#C9A227" opacity="0.25">  x++;</text>
+    <text x="46" y="188" font-family="'Courier New',monospace" font-size="8.5" fill="#4EB3E8" opacity="0.22">}</text>
+    <text x="46" y="210" font-family="'Courier New',monospace" font-size="8.5" fill="#FFFFFF" opacity="0.18">import sys;</text>
+    <text x="46" y="224" font-family="'Courier New',monospace" font-size="8.5" fill="#EE3333" opacity="0.2">const d =</text>
+    <text x="46" y="238" font-family="'Courier New',monospace" font-size="8.5" fill="#C9A227" opacity="0.18">  "dawnz";</text>
+
+    <!-- Floating code right -->
+    <text x="510" y="110" font-family="'Courier New',monospace" font-size="8.5" fill="#C9A227" opacity="0.35">int main(){</text>
+    <text x="510" y="124" font-family="'Courier New',monospace" font-size="8.5" fill="#4EB3E8" opacity="0.28">  printf();</text>
+    <text x="510" y="138" font-family="'Courier New',monospace" font-size="8.5" fill="#FFFFFF" opacity="0.2">  return 0;</text>
+    <text x="510" y="152" font-family="'Courier New',monospace" font-size="8.5" fill="#EE3333" opacity="0.25">}</text>
+    <text x="510" y="174" font-family="'Courier New',monospace" font-size="8.5" fill="#FFFFFF" opacity="0.2">while(true)</text>
+    <text x="510" y="188" font-family="'Courier New',monospace" font-size="8.5" fill="#C9A227" opacity="0.28">  build();</text>
+    <text x="510" y="210" font-family="'Courier New',monospace" font-size="8.5" fill="#4EB3E8" opacity="0.22">class App {</text>
+    <text x="510" y="224" font-family="'Courier New',monospace" font-size="8.5" fill="#EE3333" opacity="0.2">  run();</text>
+    <text x="510" y="238" font-family="'Courier New',monospace" font-size="8.5" fill="#FFFFFF" opacity="0.18">}</text>
+
+    <!-- Icon halo (animated) -->
+    <ellipse cx="340" cy="148" rx="108" ry="108" fill="#C9A227" class="icon-halo" filter="url(#iconGlow)"/>
+
+    <!-- Octagon frame -->
+    <polygon points="340,42 412,58 438,128 412,198 340,214 268,198 242,128 268,58"
+      fill="none" stroke="url(#circuitGrad)" stroke-width="1.2" opacity="0.6"/>
+    <polygon points="340,52 404,66 428,128 404,190 340,204 276,190 252,128 276,66"
+      fill="none" stroke="#C9A227" stroke-width="0.5" opacity="0.25"/>
+
+    <!-- Circuit traces -->
+    <polyline points="412,58 430,42 456,42" fill="none" stroke="#4EB3E8" stroke-width="1" opacity="0.55"/>
+    <circle cx="456" cy="42" r="3" fill="#4EB3E8" opacity="0.7" class="node-blink"/>
+    <circle cx="462" cy="42" r="1.5" fill="#4EB3E8" opacity="0.4"/>
+    <polyline points="412,198 430,214 456,214" fill="none" stroke="#EE3333" stroke-width="1" opacity="0.55"/>
+    <circle cx="456" cy="214" r="3" fill="#EE3333" opacity="0.7" class="node-blink2"/>
+    <circle cx="462" cy="214" r="1.5" fill="#EE3333" opacity="0.4"/>
+    <polyline points="268,58 250,42 224,42" fill="none" stroke="#4EB3E8" stroke-width="1" opacity="0.55"/>
+    <circle cx="224" cy="42" r="3" fill="#4EB3E8" opacity="0.7" class="node-blink"/>
+    <circle cx="218" cy="42" r="1.5" fill="#4EB3E8" opacity="0.4"/>
+    <polyline points="268,198 250,214 224,214" fill="none" stroke="#EE3333" stroke-width="1" opacity="0.55"/>
+    <circle cx="224" cy="214" r="3" fill="#EE3333" opacity="0.7" class="node-blink2"/>
+    <circle cx="218" cy="214" r="1.5" fill="#EE3333" opacity="0.4"/>
+    <polyline points="438,128 464,128 476,116" fill="none" stroke="#C9A227" stroke-width="1" opacity="0.5"/>
+    <circle cx="476" cy="116" r="2.5" fill="#C9A227" opacity="0.7" class="node-blink3"/>
+    <polyline points="242,128 216,128 204,140" fill="none" stroke="#C9A227" stroke-width="1" opacity="0.5"/>
+    <circle cx="204" cy="140" r="2.5" fill="#C9A227" opacity="0.7" class="node-blink3"/>
+
+    <!-- Calligraphic D shadow -->
+    <text x="342" y="172" text-anchor="middle" dominant-baseline="central"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="148" font-weight="700" font-style="italic"
+      fill="#000" opacity="0.5" transform="translate(3,4)">D</text>
+    <!-- Calligraphic D main -->
+    <text x="340" y="170" text-anchor="middle" dominant-baseline="central"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="148" font-weight="700" font-style="italic"
+      fill="url(#brushGold)" filter="url(#goldGlowF)">D</text>
+    <!-- Calligraphic D outline -->
+    <text x="340" y="170" text-anchor="middle" dominant-baseline="central"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="148" font-weight="700" font-style="italic"
+      fill="none" stroke="#F5D67A" stroke-width="0.6" opacity="0.4">D</text>
+
+    <!-- Circuit nodes on D curve -->
+    <circle cx="370" cy="90"  r="4"   fill="#F5D67A" opacity="0.9" class="node-blink"  filter="url(#softGlow)"/>
+    <circle cx="410" cy="110" r="3"   fill="#4EB3E8" opacity="0.85" class="node-blink2"/>
+    <circle cx="418" cy="148" r="3.5" fill="#C9A227" opacity="0.9"  class="node-blink3" filter="url(#softGlow)"/>
+    <circle cx="408" cy="182" r="3"   fill="#EE3333" opacity="0.85" class="node-blink"/>
+    <circle cx="370" cy="202" r="4"   fill="#F5D67A" opacity="0.9"  class="node-blink2" filter="url(#softGlow)"/>
+    <polyline points="370,94 410,113 420,148 408,179 370,198"
+      fill="none" stroke="#C9A227" stroke-width="0.8"
+      stroke-dasharray="3 3" class="trace-dash" opacity="0.5"/>
+
+    <!-- Code bracket left of D -->
+    <path d="M290 100 L278 100 L278 196 L290 196" fill="none" stroke="#C9A227" stroke-width="1.2" opacity="0.45" stroke-linecap="round"/>
+    <circle cx="290" cy="100" r="2" fill="#C9A227" opacity="0.55"/>
+    <circle cx="290" cy="196" r="2" fill="#C9A227" opacity="0.55"/>
+
+    <!-- Semicolons right of D -->
+    <text x="432" y="138" font-family="'Courier New',monospace" font-size="22" font-weight="700" fill="#C9A227" opacity="0.45">;</text>
+    <text x="432" y="168" font-family="'Courier New',monospace" font-size="22" font-weight="700" fill="#4EB3E8" opacity="0.35">;</text>
+
+    <!-- Parentheses flanking D -->
+    <text x="248" y="178" font-family="Georgia,serif" font-size="80" font-weight="300" fill="#C9A227" opacity="0.2">(</text>
+    <text x="392" y="178" font-family="Georgia,serif" font-size="80" font-weight="300" fill="#C9A227" opacity="0.2">)</text>
+
+    <!-- Brand name -->
+    <text x="340" y="262" text-anchor="middle"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="56" font-weight="700" letter-spacing="14"
+      fill="url(#goldText)" filter="url(#goldGlowF)">DAWNZ</text>
+
+    <!-- Coding tags flanking DAWNZ -->
+    <text x="96"  y="266" font-family="'Courier New',monospace" font-size="13" fill="#C9A227" opacity="0.4">&lt;/&gt;</text>
+    <text x="566" y="266" font-family="'Courier New',monospace" font-size="13" fill="#C9A227" opacity="0.4">()</text>
+
+    <!-- Sub-brand rules + text -->
+    <line x1="88"  y1="288" x2="238" y2="288" stroke="url(#sgcLine)" stroke-width="0.8"/>
+    <line x1="442" y1="288" x2="592" y2="288" stroke="url(#sgcLine)" stroke-width="0.8"/>
+    <text x="340" y="288" text-anchor="middle"
+      font-family="'Courier New',Courier,monospace"
+      font-size="10" letter-spacing="5.5"
+      fill="url(#sgcSub)">APPS &amp; SERVICES</text>
+
+    <!-- Full divider -->
+    <line x1="88" y1="310" x2="592" y2="310" stroke="url(#sgcLine)" stroke-width="1"/>
+
+    <!-- Tagline -->
+    <text x="340" y="338" text-anchor="middle"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="14" font-style="italic" letter-spacing="1.2"
+      fill="#D0E8F8" opacity="0.88">Engineered for excellence. Built to last.</text>
+
+    <!-- Service descriptor -->
+    <text x="340" y="368" text-anchor="middle"
+      font-family="'Courier New',Courier,monospace"
+      font-size="9.5" letter-spacing="3.5"
+      fill="url(#sgcSub)">SOFTWARE SOLUTIONS · IT SERVICES</text>
+
+    <!-- Code comment line -->
+    <text x="340" y="390" text-anchor="middle"
+      font-family="'Courier New',monospace" font-size="8.5"
+      fill="#C9A227" opacity="0.32">// innovate(); build(); deploy(); scale();</text>
+
+    <!-- Status bar -->
+    <text x="88"  y="448" font-family="'Courier New',monospace" font-size="8" fill="#4EB3E8" opacity="0.55">SYS::ONLINE</text>
+    <text x="340" y="448" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" fill="#C9A227" opacity="0.3">■ ■ ■ ■ ■ ■ ■ ■ ■ ■</text>
+    <text x="592" y="448" text-anchor="end"   font-family="'Courier New',monospace" font-size="8" fill="#EE3333" opacity="0.5">v1.0.0</text>
+  </svg>
+</div>
+
+<script>
+const canvas = document.getElementById('matrix');
+canvas.width  = 680;
+canvas.height = 480;
+const ctx  = canvas.getContext('2d');
+const cols = Math.floor(680 / 16);
+const drops = Array(cols).fill(0).map(() => Math.random() * -80);
+const chars  = '01アイウエオカキクケコABCDEF0123456789';
+function draw() {
+  ctx.fillStyle = 'rgba(3,8,15,0.05)';
+  ctx.fillRect(0, 0, 680, 480);
+  for (let i = 0; i < cols; i++) {
+    const r = Math.random();
+    ctx.fillStyle = r > 0.66 ? '#C9A227' : r > 0.33 ? '#1A6FA8' : '#FFFFFF';
+    ctx.font = '13px monospace';
+    ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 16, drops[i] * 16);
+    if (drops[i] * 16 > 480 && Math.random() > 0.975) drops[i] = 0;
+    drops[i] += 0.5;
+  }
+}
+setInterval(draw, 60);
+</script>
+</body>
+</html>

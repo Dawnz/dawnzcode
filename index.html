@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Damian Green — Software Developer | dawnzcode.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Share+Tech+Mono&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold:    #C9A227;
+  --gold-lt: #F5D67A;
+  --gold-dk: #7A5C00;
+  --blue:    #4EB3E8;
+  --blue-dk: #1A6FA8;
+  --red:     #EE3333;
+  --bg:      #03080F;
+  --bg2:     #060f1a;
+  --bg3:     #0a1628;
+  --text:    #D0E8F8;
+  --muted:   #6a8fa8;
+  --white:   #FFFFFF;
+  --font-title: 'Cinzel', serif;
+  --font-mono:  'Share Tech Mono', monospace;
+  --font-body:  'Raleway', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── MATRIX CANVAS ─────────────────────────────── */
+#matrix-bg {
+  position: fixed; inset: 0;
+  z-index: 0;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+/* ── NAV ────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  height: 64px;
+  background: rgba(3,8,15,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,162,39,0.25);
+}
+
+.nav-logo {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  background: linear-gradient(90deg, var(--gold-lt), var(--gold), var(--gold-dk));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.nav-links a:hover { color: var(--gold-lt); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ── SECTIONS ───────────────────────────────────── */
+section {
+  position: relative; z-index: 1;
+  padding: 6rem 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── SECTION LABELS ─────────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.section-title span {
+  background: linear-gradient(90deg, var(--gold-lt), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.divider {
+  width: 80px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--blue), var(--red));
+  margin-bottom: 3rem;
+  border-radius: 2px;
+}
+
+/* ── HERO ───────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: 64px;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.hero-name {
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name .first {
+  background: linear-gradient(135deg, var(--white) 30%, var(--gold-lt));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-name .last {
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold), var(--gold-dk));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-role {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+
+.hero-bio {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-cta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold-lt);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--gold);
+  transform: translateX(-100%);
+  transition: transform 0.25s;
+  z-index: -1;
+}
+.btn-primary:hover { color: var(--bg); }
+.btn-primary:hover::before { transform: translateX(0); }
+
+.btn-secondary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-secondary:hover {
+  background: var(--blue);
+  color: var(--bg);
+}
+
+/* Hero logo / visual side */
+.hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+
+.logo-container {
+  position: relative;
+  width: 340px; height: 340px;
+}
+
+.logo-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201,162,39,0.2);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+.logo-ring:nth-child(2) {
+  inset: 20px;
+  border-color: rgba(78,179,232,0.15);
+  animation-delay: 0.8s;
+}
+.logo-ring:nth-child(3) {
+  inset: 40px;
+  border-color: rgba(238,51,51,0.12);
+  animation-delay: 1.6s;
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+.logo-d {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-title);
+  font-size: 11rem;
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold), var(--gold-dk));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(201,162,39,0.4));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.logo-orbit {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  animation: orbit 6s linear infinite;
+}
+.logo-orbit.blue { background: var(--blue); top: 50%; left: 0; animation-duration: 5s; }
+.logo-orbit.red  { background: var(--red);  top: 0; left: 50%; animation-duration: 8s; animation-delay: -2s; }
+.logo-orbit.gold { background: var(--gold); bottom: 0; right: 15%; animation-duration: 7s; animation-delay: -4s; }
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
+}
+
+.hero-stats {
+  display: flex; gap: 2rem; margin-top: 2.5rem;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: block;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ── ABOUT ──────────────────────────────────────── */
+#about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 0.97rem;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.about-text p strong {
+  color: var(--gold-lt);
+  font-weight: 600;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.info-item {
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(201,162,39,0.18);
+  background: rgba(201,162,39,0.04);
+}
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.info-value {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+/* Tech stack */
+.tech-stack { display: flex; flex-direction: column; gap: 1rem; }
+
+.tech-item {}
+.tech-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.4rem;
+}
+.tech-name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+.tech-pct {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+.tech-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.tech-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.tech-fill.blue-fill {
+  background: linear-gradient(90deg, var(--blue-dk), var(--blue));
+}
+.tech-fill.red-fill {
+  background: linear-gradient(90deg, #8B0000, var(--red));
+}
+.tech-fill.animated { transform: scaleX(1); }
+
+/* ── EDUCATION ──────────────────────────────────── */
+#education { background: var(--bg2); }
+
+.edu-timeline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.edu-card {
+  padding: 2rem;
+  border: 1px solid rgba(201,162,39,0.2);
+  background: rgba(201,162,39,0.03);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.edu-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--gold), var(--blue), var(--red));
+}
+.edu-card:hover {
+  border-color: rgba(201,162,39,0.5);
+  transform: translateY(-4px);
+}
+
+.edu-years {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.edu-school {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+}
+.edu-degree {
+  font-size: 0.87rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+.edu-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid rgba(78,179,232,0.4);
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+/* ── EXPERIENCE ─────────────────────────────────── */
+#experience { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%); }
+
+.exp-list { display: flex; flex-direction: column; gap: 2rem; }
+
+.exp-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.exp-card:hover { border-color: rgba(201,162,39,0.3); }
+
+.exp-side {
+  padding: 2rem 1.5rem;
+  background: rgba(201,162,39,0.05);
+  border-right: 1px solid rgba(201,162,39,0.15);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.exp-company {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+}
+.exp-status {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(78,179,232,0.4);
+  color: var(--blue);
+  text-transform: uppercase;
+}
+.exp-status.current {
+  border-color: rgba(100,220,100,0.5);
+  color: #64dc64;
+}
+
+.exp-body { padding: 2rem; }
+.exp-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.exp-points li {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--muted);
+  padding-left: 1.2rem;
+  position: relative;
+}
+.exp-points li::before {
+  content: '▸';
+  position: absolute; left: 0;
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+
+/* ── CERTIFICATIONS ─────────────────────────────── */
+#certifications { background: var(--bg3); }
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.cert-card {
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(201,162,39,0.2);
+  background: rgba(201,162,39,0.03);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.cert-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--gold), var(--red));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.cert-card:hover {
+  border-color: rgba(201,162,39,0.45);
+  transform: translateY(-4px);
+  background: rgba(201,162,39,0.07);
+}
+.cert-card:hover::after { transform: scaleX(1); }
+
+.cert-badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 0 10px rgba(255,153,0,0.3));
+  transition: filter 0.3s;
+}
+.cert-card:hover .cert-badge-wrap {
+  filter: drop-shadow(0 0 18px rgba(255,153,0,0.6));
+}
+.cert-credly {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.cert-card:hover .cert-credly { opacity: 1; }
+.cert-title {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+.cert-org {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ── PROJECTS ───────────────────────────────────── */
+#projects { background: linear-gradient(180deg, var(--bg3) 0%, var(--bg) 100%); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.project-card {
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: block;
+}
+.project-card:hover {
+  border-color: rgba(201,162,39,0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.project-header {
+  padding: 1.8rem 1.8rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+}
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid;
+  margin-bottom: 0.8rem;
+  display: inline-block;
+}
+.project-tag.live   { border-color: rgba(100,220,100,0.4); color: #64dc64; }
+.project-tag.build  { border-color: rgba(201,162,39,0.4);  color: var(--gold); }
+.project-tag.expand { border-color: rgba(78,179,232,0.4);  color: var(--blue); }
+
+.project-name {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+.project-url {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  opacity: 0.7;
+}
+.project-body { padding: 1rem 1.8rem 1.8rem; }
+.project-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+.project-tech {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+}
+.tech-pill {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.6rem;
+  background: rgba(201,162,39,0.08);
+  border: 1px solid rgba(201,162,39,0.2);
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* Expansion card */
+.project-card.expansion-card {
+  border: 1px dashed rgba(78,179,232,0.25);
+  background: rgba(78,179,232,0.02);
+}
+.project-card.expansion-card:hover {
+  border-color: rgba(78,179,232,0.5);
+  box-shadow: 0 20px 40px rgba(78,179,232,0.1);
+}
+
+/* ── SKILLS ─────────────────────────────────────── */
+#skills { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.skill-chip {
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+  transition: all 0.25s;
+  cursor: default;
+}
+.skill-chip:hover {
+  border-color: rgba(201,162,39,0.35);
+  color: var(--gold-lt);
+  background: rgba(201,162,39,0.05);
+}
+
+/* ── CONTACT ────────────────────────────────────── */
+#contact {
+  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-item {
+  display: flex; align-items: center; gap: 1.2rem;
+  text-decoration: none;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  transition: all 0.25s;
+}
+.contact-item:hover {
+  border-color: rgba(201,162,39,0.35);
+  background: rgba(201,162,39,0.04);
+}
+.contact-icon {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--gold);
+  min-width: 2rem;
+  text-align: center;
+}
+.contact-detail {}
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.contact-value {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.contact-cta {
+  padding: 3rem;
+  border: 1px solid rgba(201,162,39,0.2);
+  background: rgba(201,162,39,0.03);
+  position: relative;
+  overflow: hidden;
+}
+.contact-cta::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--gold), var(--red));
+}
+.contact-cta-title {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+}
+.contact-cta-text {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid rgba(201,162,39,0.15);
+  padding: 2rem 0;
+  text-align: center;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+}
+.footer-brand {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  background: linear-gradient(90deg, var(--gold-lt), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.footer-code {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* ── SCROLL REVEAL ──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── DECORATIVE HEX ─────────────────────────────── */
+.hex-deco {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--gold);
+  opacity: 0.08;
+  pointer-events: none;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .edu-timeline, .cert-grid, .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
+  .exp-card { grid-template-columns: 1fr; }
+  .exp-side { border-right: none; border-bottom: 1px solid rgba(201,162,39,0.15); }
+  nav { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="matrix-bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">DAWNZ</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow">// software developer · dawnzcode.com</p>
+        <h1 class="hero-name">
+          <span class="first">DAMIAN</span><br>
+          <span class="last">GREEN</span>
+        </h1>
+        <p class="hero-role">Full-Stack Developer &amp; Founder</p>
+        <p class="hero-bio">
+          Software Developer skilled in creating stable backend systems and full-stack features using Java, Spring Boot and modern JavaScript tools. Founder of <strong style="color:var(--gold-lt)">Dawnz Apps &amp; Services</strong> — turning ideas into simple, useful solutions.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#contact" class="btn-secondary">Get In Touch</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Years Dev</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3x</span>
+            <span class="stat-label">AWS Certified</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">BSc</span>
+            <span class="stat-label">Computer Sci.</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="logo-container">
+          <div class="logo-ring"></div>
+          <div class="logo-ring"></div>
+          <div class="logo-ring"></div>
+          <div class="logo-d">D</div>
+          <div class="logo-orbit blue"></div>
+          <div class="logo-orbit red"></div>
+          <div class="logo-orbit gold"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 01 &nbsp;·&nbsp; about</p>
+      <h2 class="section-title">Who I <span>Am</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm <strong>Damian Green</strong>, a passionate Full-Stack Software Developer based in Kingston, Jamaica. I specialize in building robust, scalable backend systems and crafting seamless full-stack experiences that bridge great engineering with great user experience.
+        </p>
+        <p>
+          With a BSc in Computer Science from the University of Technology, Jamaica, and over five years of industry experience, I've worked across enterprise fintech, mobile software, and energy sectors — always focused on building things that <strong>actually work</strong>.
+        </p>
+        <p>
+          I'm also the founder of <strong>Dawnz Apps &amp; Services</strong>, a growing software solutions venture where I bring together my technical expertise and entrepreneurial drive to deliver modern digital products — including <strong>KPoppin</strong> and <strong>Jamaica Classifieds</strong>.
+        </p>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Location</span>
+            <span class="info-value">Kingston, Jamaica</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Domain</span>
+            <span class="info-value">dawnzcode.com</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Degree</span>
+            <span class="info-value">BSc Computer Science</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Status</span>
+            <span class="info-value" style="color:#64dc64">Available for Hire</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="section-label" style="margin-bottom:1.5rem;">// tech proficiency</p>
+        <div class="tech-stack" id="techStack">
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">Java / Spring Boot</span>
+              <span class="tech-pct">92%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill" style="width:92%"></div></div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">JavaScript / React / Vue</span>
+              <span class="tech-pct">88%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill blue-fill" style="width:88%"></div></div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">Flutter / Mobile</span>
+              <span class="tech-pct">78%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill" style="width:78%"></div></div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">MySQL / MongoDB</span>
+              <span class="tech-pct">85%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill red-fill" style="width:85%"></div></div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">AWS / Cloud (Azure)</span>
+              <span class="tech-pct">82%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill blue-fill" style="width:82%"></div></div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-header">
+              <span class="tech-name">Angular / TypeScript</span>
+              <span class="tech-pct">76%</span>
+            </div>
+            <div class="tech-bar"><div class="tech-fill" style="width:76%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 02 &nbsp;·&nbsp; education</p>
+      <h2 class="section-title">Academic <span>Background</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="edu-timeline">
+      <div class="edu-card reveal">
+        <div class="edu-years">2010 – 2015</div>
+        <div class="edu-school">University of Technology, Jamaica</div>
+        <div class="edu-degree">
+          Bachelor of Science in Computer Science<br>
+          <span style="font-size:0.82rem; color:var(--muted);">Gained deep expertise in software engineering, data structures, algorithms, and systems design. Foundation for a career in full-stack and cloud development.</span>
+        </div>
+        <span class="edu-badge">BSc · Computer Science</span>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:0.15s">
+        <div class="edu-years">2004 – 2010</div>
+        <div class="edu-school">St. George's College, Kingston</div>
+        <div class="edu-degree">
+          High School Diploma (CXC / CAPE)<br>
+          <span style="font-size:0.82rem; color:var(--muted);">Grounded in the tradition of academic excellence and discipline. Early exposure to mathematics and sciences fueled a passion for technology and problem solving.</span>
+        </div>
+        <span class="edu-badge" style="border-color:rgba(78,179,232,0.4); color:var(--blue)">St. George's College</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 03 &nbsp;·&nbsp; experience</p>
+      <h2 class="section-title">Work <span>Experience</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-card reveal">
+        <div class="exp-side">
+          <div>
+            <div class="exp-company">Blue Chip Strategies Limited</div>
+            <div class="exp-period">2022 – Present</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;margin-top:0.8rem;">
+            <span class="exp-status current">● Current</span>
+            <span class="exp-status" style="border-color:rgba(201,162,39,0.4);color:var(--gold);">Full-Time</span>
+          </div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Software Developer</div>
+          <ul class="exp-points">
+            <li>Developed RESTful APIs using Spring Boot, integrating JPA/Hibernate with relational and NoSQL databases (H2 and MongoDB).</li>
+            <li>Built single-page web applications using React and modern JavaScript, implementing responsive UI layouts with CSS Flexbox and Grid.</li>
+            <li>Collaborated within Agile teams to build and maintain applications using Spring Boot, Vue.js, and React.</li>
+            <li>Implemented automated testing and code coverage tools to improve application reliability and maintainability.</li>
+            <li>Supported cloud deployments on Azure and AWS while developing responsive, user-focused web features.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-side">
+          <div>
+            <div class="exp-company">Smart Mobile Solutions</div>
+            <div class="exp-period">2021</div>
+          </div>
+          <span class="exp-status">Contract</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Software Developer</div>
+          <ul class="exp-points">
+            <li>Collaborated within an Agile development team to build and maintain mobile and web applications.</li>
+            <li>Implemented automated testing and code coverage tools to improve reliability.</li>
+            <li>Supported cloud deployments on Azure and AWS while developing responsive features.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-side">
+          <div>
+            <div class="exp-company">Rubis Energy</div>
+            <div class="exp-period">2020</div>
+          </div>
+          <span class="exp-status">Contract</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Card Services Support</div>
+          <ul class="exp-points">
+            <li>Provided technical and operational support for fleet card services, assisting corporate clients with card usage and account inquiries.</li>
+            <li>Maintained strong working relationships with internal teams, vendors, and corporate clients to support fleet card operations.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 04 &nbsp;·&nbsp; certifications</p>
+      <h2 class="section-title">My <span>Certifications</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- AWS Sub-heading -->
+    <div class="reveal" style="margin-bottom:2rem;">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="14" fill="#232F3E"/>
+          <path d="M28 64 L36 36 L44 56 L52 36 L60 56 L68 36 L76 64" fill="none" stroke="#FF9900" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M22 74 Q50 82 78 74" fill="none" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
+          <polygon points="78,74 84,70 83,77" fill="#FF9900"/>
+        </svg>
+        <div>
+          <div style="font-family:var(--font-title);font-size:1rem;font-weight:600;color:var(--white);letter-spacing:0.08em;">Amazon Web Services</div>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;">3 Associate-Level Certifications</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-grid">
+
+      <!-- Solutions Architect -->
+      <a href="https://www.credly.com/earner/earned/share/3a27eb5b-90b8-4006-842c-221c4dc78890" target="_blank" class="cert-card reveal" style="text-decoration:none;display:block;">
+        <div class="cert-badge-wrap">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+            <polygon points="60,6 112,34 112,86 60,114 8,86 8,34" fill="#232F3E" stroke="#FF9900" stroke-width="3"/>
+            <polygon points="60,18 100,40 100,80 60,102 20,80 20,40" fill="#1a2332" stroke="#FF9900" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="60" y="54" text-anchor="middle" font-family="monospace" font-weight="700" font-size="11" fill="#FF9900" letter-spacing="0">AWS</text>
+            <text x="60" y="68" text-anchor="middle" font-family="monospace" font-size="7.5" fill="#FFFFFF" letter-spacing="0.5">SOLUTIONS</text>
+            <text x="60" y="79" text-anchor="middle" font-family="monospace" font-size="7.5" fill="#FFFFFF" letter-spacing="0.5">ARCHITECT</text>
+            <text x="60" y="91" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#FF9900" letter-spacing="0.5">ASSOCIATE</text>
+          </svg>
+        </div>
+        <div class="cert-title">AWS Certified Solutions Architect</div>
+        <div class="cert-org" style="margin-bottom:0.6rem;">Associate</div>
+        <div class="cert-credly">View on Credly ↗</div>
+      </a>
+
+      <!-- Developer -->
+      <a href="https://www.credly.com/earner/earned/share/877b4118-1e9f-44ce-823a-28af89a6ed4a" target="_blank" class="cert-card reveal" style="text-decoration:none;display:block;transition-delay:0.12s;">
+        <div class="cert-badge-wrap">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+            <polygon points="60,6 112,34 112,86 60,114 8,86 8,34" fill="#232F3E" stroke="#FF9900" stroke-width="3"/>
+            <polygon points="60,18 100,40 100,80 60,102 20,80 20,40" fill="#1a2332" stroke="#FF9900" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="60" y="54" text-anchor="middle" font-family="monospace" font-weight="700" font-size="11" fill="#FF9900">AWS</text>
+            <text x="60" y="68" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFFFFF" letter-spacing="0.5">DEVELOPER</text>
+            <text x="60" y="91" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#FF9900" letter-spacing="0.5">ASSOCIATE</text>
+          </svg>
+        </div>
+        <div class="cert-title">AWS Certified Developer</div>
+        <div class="cert-org" style="margin-bottom:0.6rem;">Associate</div>
+        <div class="cert-credly">View on Credly ↗</div>
+      </a>
+
+      <!-- CloudOps -->
+      <a href="https://www.credly.com/earner/earned/share/71a60351-9f42-47e9-8de1-e21e7212d8bc" target="_blank" class="cert-card reveal" style="text-decoration:none;display:block;transition-delay:0.24s;">
+        <div class="cert-badge-wrap">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+            <polygon points="60,6 112,34 112,86 60,114 8,86 8,34" fill="#232F3E" stroke="#FF9900" stroke-width="3"/>
+            <polygon points="60,18 100,40 100,80 60,102 20,80 20,40" fill="#1a2332" stroke="#FF9900" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="60" y="54" text-anchor="middle" font-family="monospace" font-weight="700" font-size="11" fill="#FF9900">AWS</text>
+            <text x="60" y="66" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFFFFF" letter-spacing="0.5">CLOUDOPS</text>
+            <text x="60" y="77" text-anchor="middle" font-family="monospace" font-size="7.5" fill="#FFFFFF" letter-spacing="0.5">ENGINEER</text>
+            <text x="60" y="91" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#FF9900" letter-spacing="0.5">ASSOCIATE</text>
+          </svg>
+        </div>
+        <div class="cert-title">AWS Certified CloudOps Engineer</div>
+        <div class="cert-org" style="margin-bottom:0.6rem;">Associate</div>
+        <div class="cert-credly">View on Credly ↗</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 05 &nbsp;·&nbsp; projects</p>
+      <h2 class="section-title">Dawnz <span>Portfolio</span></h2>
+      <div class="divider"></div>
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:3rem; max-width:580px;">
+        Personal and commercial projects under the <span style="color:var(--gold-lt)">Dawnz Apps &amp; Services</span> umbrella, hosted at dawnzcode.com — with more expanding soon.
+      </p>
+    </div>
+    <div class="projects-grid">
+
+      <a href="https://kpoppin.dawnzcode.com" target="_blank" class="project-card reveal">
+        <div class="project-header">
+          <span class="project-tag live">● Live</span>
+          <div class="project-name">KPoppin</div>
+          <div class="project-url">kpoppin.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">A dynamic K-Pop culture platform bringing music, content and community together. Built with a modern full-stack architecture and designed for a global fanbase.</p>
+          <div class="project-tech">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Spring Boot</span>
+            <span class="tech-pill">MongoDB</span>
+            <span class="tech-pill">AWS</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://jamaica-classifieds.dawnzcode.com" target="_blank" class="project-card reveal" style="transition-delay:0.12s">
+        <div class="project-header">
+          <span class="project-tag live">● Live</span>
+          <div class="project-name">Jamaica Classifieds</div>
+          <div class="project-url">jamaica-classifieds.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">A local Jamaican marketplace platform connecting buyers and sellers. Feature-rich classified listings with category search, geo-filtering, and real-time notifications.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Vue.js</span>
+            <span class="tech-pill">Spring Boot</span>
+            <span class="tech-pill">MySQL</span>
+            <span class="tech-pill">AWS S3</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="project-card expansion-card reveal" style="transition-delay:0.24s">
+        <div class="project-header">
+          <span class="project-tag expand">◌ Expanding</span>
+          <div class="project-name">Dawnz Enterprise API</div>
+          <div class="project-url">api.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">A shared microservices API gateway powering all Dawnz products — authentication, notifications, payment processing and analytics under one scalable cloud-native roof.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Spring Boot</span>
+            <span class="tech-pill">Docker</span>
+            <span class="tech-pill">AWS ECS</span>
+            <span class="tech-pill">MongoDB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card expansion-card reveal" style="transition-delay:0.36s">
+        <div class="project-header">
+          <span class="project-tag build">◎ Building</span>
+          <div class="project-name">Dawnz Mobile</div>
+          <div class="project-url">mobile.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Cross-platform Flutter mobile apps for KPoppin and Jamaica Classifieds — bringing the full Dawnz ecosystem to iOS and Android with native-quality experiences.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Flutter</span>
+            <span class="tech-pill">Dart</span>
+            <span class="tech-pill">Firebase</span>
+            <span class="tech-pill">REST API</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card expansion-card reveal" style="transition-delay:0.48s">
+        <div class="project-header">
+          <span class="project-tag expand">◌ Expanding</span>
+          <div class="project-name">Dawnz Analytics</div>
+          <div class="project-url">analytics.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">An internal analytics and insights dashboard for monitoring all Dawnz platform metrics — user growth, engagement, revenue, and deployment health in real time.</p>
+          <div class="project-tech">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">D3.js</span>
+            <span class="tech-pill">AWS CloudWatch</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card expansion-card reveal" style="transition-delay:0.6s">
+        <div class="project-header">
+          <span class="project-tag build">◎ Planned</span>
+          <div class="project-name">IT Consultancy Portal</div>
+          <div class="project-url">consult.dawnzcode.com</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">A client-facing portal for Dawnz hardware IT services — support tickets, hardware inventory management, and service scheduling for SME clients in Jamaica.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Vue.js</span>
+            <span class="tech-pill">Spring Boot</span>
+            <span class="tech-pill">MySQL</span>
+            <span class="tech-pill">AWS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 06 &nbsp;·&nbsp; skills</p>
+      <h2 class="section-title">Core <span>Competencies</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-chip">Agile Development</div>
+      <div class="skill-chip">Test Driven Dev</div>
+      <div class="skill-chip">Leadership</div>
+      <div class="skill-chip">Critical Thinking</div>
+      <div class="skill-chip">Teamwork</div>
+      <div class="skill-chip">Time Management</div>
+      <div class="skill-chip">Effective Communication</div>
+      <div class="skill-chip">System Design</div>
+      <div class="skill-chip">RESTful APIs</div>
+      <div class="skill-chip">CI/CD Pipelines</div>
+      <div class="skill-chip">Microservices</div>
+      <div class="skill-chip">Cloud Architecture</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// 07 &nbsp;·&nbsp; contact</p>
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-items reveal">
+        <a href="tel:+18763964259" class="contact-item">
+          <span class="contact-icon">☎</span>
+          <div class="contact-detail">
+            <span class="contact-label">Phone</span>
+            <span class="contact-value">+1 876-396-4259</span>
+          </div>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#a6c2c7cbcfc7c8c1d4c3c3c894969496e6c9d3d2cac9c9cd88c5c9cb" class="contact-item">
+          <span class="contact-icon">✉</span>
+          <div class="contact-detail">
+            <span class="contact-label">Email</span>
+            <span class="contact-value"><span class="__cf_email__" data-cfemail="2145404c48404f465344444f13111311614e54554d4e4e4a0f424e4c">[email&#160;protected]</span></span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/damian-green65905174/" target="_blank" class="contact-item">
+          <span class="contact-icon">in</span>
+          <div class="contact-detail">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">damian-green65905174</span>
+          </div>
+        </a>
+        <a href="https://dawnzcode.com" target="_blank" class="contact-item">
+          <span class="contact-icon">⬡</span>
+          <div class="contact-detail">
+            <span class="contact-label">Website</span>
+            <span class="contact-value">dawnzcode.com</span>
+          </div>
+        </a>
+        <div class="contact-item" style="cursor:default">
+          <span class="contact-icon">◎</span>
+          <div class="contact-detail">
+            <span class="contact-label">Location</span>
+            <span class="contact-value">Kingston, Jamaica</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-cta reveal">
+        <div class="contact-cta-title">Let's Build Something</div>
+        <p class="contact-cta-text">
+          Whether you're looking for a skilled developer, want to collaborate on a project, or need software solutions for your business — I'm open to opportunities that challenge and inspire.
+        </p>
+        <a href="/cdn-cgi/l/email-protection#5337323e3a323d342136363d61636163133c26273f3c3c387d303c3e" class="btn-primary">Send a Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">DAWNZ APPS &amp; SERVICES</span>
+    <span class="footer-copy">© 2025 Damian Green · dawnzcode.com</span>
+    <span class="footer-code">// build(); deploy(); scale();</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── MATRIX RAIN ───────────────────────────────── */
+const canvas = document.getElementById('matrix-bg');
+const ctx = canvas.getContext('2d');
+let cols, drops;
+const chars = '01アイウエオカキクケコABCDEF0123456789{}();';
+
+function initMatrix() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  cols  = Math.floor(canvas.width / 18);
+  drops = Array(cols).fill(0).map(() => Math.random() * -60);
+}
+initMatrix();
+window.addEventListener('resize', initMatrix);
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(3,8,15,0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < cols; i++) {
+    const r = Math.random();
+    ctx.fillStyle = r > 0.66 ? '#C9A227' : r > 0.33 ? '#1A6FA8' : '#FFFFFF';
+    ctx.font = '13px monospace';
+    ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 18, drops[i] * 18);
+    if (drops[i] * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i] += 0.55;
+  }
+}
+setInterval(drawMatrix, 55);
+
+/* ── SCROLL REVEAL ─────────────────────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Animate tech bars
+      const bars = e.target.querySelectorAll('.tech-fill');
+      bars.forEach(b => setTimeout(() => b.classList.add('animated'), 200));
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* Also observe tech stack section separately */
+const techObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.tech-fill').forEach((b, i) => {
+        setTimeout(() => b.classList.add('animated'), 200 + i * 100);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+const ts = document.getElementById('techStack');
+if (ts) techObs.observe(ts);
+
+/* ── SMOOTH NAV HIGHLIGHT ──────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
