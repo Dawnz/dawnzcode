@@ -1487,3 +1487,30 @@ if (ts) techObs.observe(ts);
 /* ── SMOOTH NAV HIGHLIGHT ──────────────────────── */
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--gold-lt)' : '';
+  });
+});
+
+/* ── SAFETY FALLBACK ───────────────────────────────
+   If IntersectionObserver never fires (e.g. hidden iframe,
+   prerender, or content already in viewport on load),
+   force-reveal everything after 800ms.
+──────────────────────────────────────────────────── */
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.add('visible');
+  });
+  document.querySelectorAll('.tech-fill').forEach((b, i) => {
+    setTimeout(() => b.classList.add('animated'), i * 80);
+  });
+}, 800);
+</script>
+</body>
+</html>
