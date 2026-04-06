@@ -844,6 +844,26 @@ footer {
   color: var(--muted);
 }
 
+.copy-btn {
+  color: var(--muted);
+  transition: color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  padding: 0.2rem 0.4rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+  user-select: none;
+}
+.email-copy-item:hover .copy-btn {
+  color: var(--gold);
+  transform: scale(1.2);
+}
+.copy-btn.copied {
+  color: #64dc64;
+  font-size: 1rem;
+}
+
 /* ── SCROLL REVEAL ──────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -1377,14 +1397,15 @@ footer {
             <span class="contact-value">+1 876-396-4259</span>
           </div>
         </a>
-        <a href="/cdn-cgi/l/email-protection#a6c2c7cbcfc7c8c1d4c3c3c894969496e6c9d3d2cac9c9cd88c5c9cb" class="contact-item">
+        <div class="contact-item email-copy-item" onclick="copyEmail()" style="cursor:pointer;" title="Click to copy email">
           <span class="contact-icon">✉</span>
-          <div class="contact-detail">
+          <div class="contact-detail" style="flex:1;">
             <span class="contact-label">Email</span>
-            <span class="contact-value"><span class="__cf_email__" data-cfemail="2145404c48404f465344444f13111311614e54554d4e4e4a0f424e4c">[email&#160;protected]</span></span>
+            <span class="contact-value" id="email-display">damiangreen2020 @ outlook.com</span>
           </div>
-        </a>
-        <a href="https://www.linkedin.com/in/damian-green-65905174/" target="_blank" class="contact-item">
+          <span class="copy-btn" id="copy-btn" aria-label="Copy email">⧉</span>
+        </div>
+        <a href="https://www.linkedin.com/in/damian-green65905174/" target="_blank" class="contact-item">
           <span class="contact-icon">in</span>
           <div class="contact-detail">
             <span class="contact-label">LinkedIn</span>
@@ -1412,7 +1433,7 @@ footer {
         <p class="contact-cta-text">
           Whether you're looking for a skilled developer, want to collaborate on a project, or need software solutions for your business — I'm open to opportunities that challenge and inspire.
         </p>
-        <a href="/cdn-cgi/l/email-protection#5337323e3a323d342136363d61636163133c26273f3c3c387d303c3e" class="btn-primary">Send a Message</a>
+        <a href="#" onclick="openEmail(); return false;" class="btn-primary">Send a Message</a>
       </div>
     </div>
   </div>
@@ -1427,7 +1448,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── MATRIX RAIN ───────────────────────────────── */
 const canvas = document.getElementById('matrix-bg');
 const ctx = canvas.getContext('2d');
@@ -1503,14 +1524,70 @@ window.addEventListener('scroll', () => {
    prerender, or content already in viewport on load),
    force-reveal everything after 800ms.
 ──────────────────────────────────────────────────── */
-setTimeout(() => {
-  document.querySelectorAll('.reveal').forEach(el => {
+setTimeout(function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
     el.classList.add('visible');
   });
-  document.querySelectorAll('.tech-fill').forEach((b, i) => {
-    setTimeout(() => b.classList.add('animated'), i * 80);
+  document.querySelectorAll('.tech-fill').forEach(function(b, i) {
+    setTimeout(function() { b.classList.add('animated'); }, i * 80);
   });
 }, 800);
+
+function getEmail() {
+  var u = 'damiangreen2020';
+  var d = 'outlook.com';
+  return u + '@' + d;
+}
+
+function copyEmail() {
+  var email = getEmail();
+  var btn = document.getElementById('copy-btn');
+  var display = document.getElementById('email-display');
+  var prevText = display.textContent;
+
+  function showCopied() {
+    btn.classList.add('copied');
+    btn.textContent = '\u2713';
+    display.textContent = 'Copied!';
+    display.style.color = '#64dc64';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.textContent = '\u29c9';
+      display.textContent = prevText;
+      display.style.color = '';
+    }, 2000);
+  }
+
+  function fallbackCopy() {
+    var ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { showCopied(); } else { window.prompt('Copy:', email); }
+    } catch(e) {
+      document.body.removeChild(ta);
+      window.prompt('Copy:', email);
+    }
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(showCopied).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+}
+
+function openEmail() {
+  window.location.href = 'mailto:' + getEmail();
+}
 </script>
 </body>
 </html>
